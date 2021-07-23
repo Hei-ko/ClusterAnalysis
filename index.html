@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cluster Analisys</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+
+
+    <!--- map js code taken from https://github.com/heremaps/maps-api-for-javascript-examples/tree/master/markers-on-the-map --->
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <link rel="stylesheet" type="text/css" href="demo.css" />
+    <script type="text/javascript" src='test-credentials.js'></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <script type="text/javascript" src="demo.js" defer></script>
+</head>
+
+<body>
+    <header class="siteheader">
+        <div class="site-title">Cluster analysis</div>
+        <div class="site-description">example using cities' locations</div>
+    </header>
+
+    <main class="maincontent">
+        <table>
+            <tr>
+                <th width="500" style="vertical-align: top">
+                    <table class="input" id="inputTable">
+                        <tr>
+                            <p>LIST OF LOCATIONS:</p>
+                        </tr>
+                        <tr id="headers">
+                            <th>
+                                Location Name
+                            </th>
+                            <th>
+                                Latitude
+                            </th>
+                            <th>
+                                Longitude
+                            </th>
+                        </tr>
+                        <tr id="tl1">
+                            <th>
+                                <input class="input" type="text" id="lname1"></input>
+                            </th>
+                            <th>
+                                <input class="input" type="number" id="lat1"></input>
+                            </th>
+                            <th>
+                                <input class="input" type="number" id="lon1"></input>
+                            </th>
+                            <th>
+                                <button class="input" type="button" id="del1" onclick="delButton(this.id)" disabled>Delete</button>
+                            </th>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="input">
+                        <tr>
+                            <th width="273rem">
+                            </th>
+                            <th width="100rem">
+                                <label>Add Line(s)</label>
+                            </th>
+                            <th>
+                                <input class="small-number" id="newline" value="1" onchange="if (this.value > 10) this.value = 10;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"></input>
+                            </th>
+                            <th width="100rem">
+                                <button type="button" onclick="add()">Add Line(s)</button>
+                            </th>
+                        </tr>
+                    </table>
+                </th>
+                <th width="100"></th>
+                <th width="450" style="vertical-align: top">
+                    <table>
+                        <tr>
+                            <p>Calculate centers:</p>
+                        </tr>
+                        <tr>
+                            <table class="output">
+                                <tr>
+                                    <th width="190rem"></th>
+                                    <th width="150rem">
+                                        <label>Set Centers quantity (max)</label>
+                                    </th>
+                                    <th width="2rem">
+                                        <input class="small-number" id="centers" value="1" onchange="if (this.value > 10) this.value = 10;" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"></input>
+                                    </th>
+                                    <th width="80rem">
+                                        <button type="button" onclick="run()">Calculate</button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <table class="output" id="results">
+                                        <tr>
+                                            <br>
+                                            <p>LIST OF CENTERS:</p>
+                                        </tr>
+                                        <tr id="headers">
+                                            <td>
+                                                Center
+                                            </td>
+                                            <td>
+                                                Latitude
+                                            </td>
+                                            <td>
+                                                Longitude
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input class="output" type="text" id="lname1" value="Center #1" disabled></input>
+                                            </th>
+                                            <th>
+                                                <input class="output" disabled></input>
+                                            </th>
+                                            <th>
+                                                <input class="output" disabled></input>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                    <p>Map:</p>
+                                    <br>
+                                    <div id="map"></div>
+                                </tr>
+                            </table>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+        </table>
+    </main>
+    <script src="data.js"></script>
+    <footer class="sitefooter ">
+        <span>Demo Project ::   </span><span id="dr">Denis Rozit   </span><span> :: 2021</span>
+    </footer>
+</body>
+
+</html>
